@@ -6,9 +6,9 @@ reset_on_extinction   = False
 
 [DefaultGenome]
 # node activation options
-activation_default      = relu
+activation_default      = sigmoid
 activation_mutate_rate  = 0.0
-activation_options      = relu
+activation_options      = sigmoid
 
 # node aggregation options
 aggregation_default     = sum
@@ -16,7 +16,6 @@ aggregation_mutate_rate = 0.0
 aggregation_options     = sum
 
 # node bias options
-bias_init_type          = gaussian
 bias_init_mean          = 0.0
 bias_init_stdev         = 1.0
 bias_max_value          = 30.0
@@ -78,4 +77,3 @@ species_elitism      = 2
 [DefaultReproduction]
 elitism            = 2
 survival_threshold = 0.2
-min_species_size   = 1
