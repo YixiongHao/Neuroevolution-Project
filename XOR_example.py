@@ -10,7 +10,7 @@ xor_outputs = [(0.0,), (1.0,), (1.0,), (0.0,)]
 
 def eval_genomes(genomes, config):
     for genome_id, genome in genomes:
-        genome.fitness = 4
+        genome.fitness = 4.0
         net = neat.nn.FeedForwardNetwork.create(genome, config)
         for xi, xo in zip(xor_inputs, xor_outputs):
             output = net.activate(xi)
@@ -30,15 +30,14 @@ def run(config_file):
     p.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
-    p.add_reporter(neat.Checkpointer(10))
+    p.add_reporter(neat.Checkpointer(30))
 
     # Run for up to 300 generations.
-    winner = p.run(eval_genomes, 100)
-
+    winner = p.run(eval_genomes, 200)
     # Display the winning genome.
     print('\nBest genome:\n{!s}'.format(winner))
 
-    # Show output of the most fit genome against training data.
+    # Show output of the most fit genome against training data.fit1
     print('\nOutput:')
     winner_net = neat.nn.FeedForwardNetwork.create(winner, config)
     for xi, xo in zip(xor_inputs, xor_outputs):
@@ -46,7 +45,7 @@ def run(config_file):
         print("input {!r}, expected output {!r}, got {!r}".format(xi, xo, output))
 
     node_names = {-1: 'x1', -2: 'x2', 0: 'y'}
-    visualize.draw_net(config, winner, True, node_names=node_names)
+    visualize.draw_net(config, winner, True, node_names=node_names, filename="Final")
     #visualize.draw_net(config, winner, True, node_names=node_names, prune_unused=True)
     visualize.plot_stats(stats, ylog=False, view=True)
     visualize.plot_species(stats, view=True)
@@ -61,4 +60,4 @@ if __name__ == '__main__':
     # current working directory.
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'config-feedforward')
-    run('config.md')
+    run('best_config.md')
