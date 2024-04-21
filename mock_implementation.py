@@ -1,4 +1,6 @@
+import os
 import neat
+import visualize
 
 class robot():
     #initialize all robot attributes
